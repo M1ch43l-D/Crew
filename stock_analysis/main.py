@@ -1,10 +1,12 @@
 from crewai import Crew
 from textwrap import dedent
 from langchain_openai import ChatOpenAI
-from stock_analysis.stock_analysis_agents import StockAnalysisAgents
-from stock_analysis.stock_analysis_tasks import StockAnalysisTasks
+from stock_analysis_agents import StockAnalysisAgents
+from stock_analysis_tasks import StockAnalysisTasks
+
 from dotenv import load_dotenv
 load_dotenv()
+
 class FinancialCrew:
   def __init__(self, company):
     self.company = company

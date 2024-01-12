@@ -1,12 +1,10 @@
 import os
 import dotenv
 from crewai import Agent, Task, Crew, Process
-from langchain_openai import ChatOpenAI
+from langchain_openai import ChatOpenAI, OpenAI
 from langchain.tools import DuckDuckGoSearchRun
 from crewai import Crew
 from textwrap import dedent
-from stock_analysis.stock_analysis_agents import StockAnalysisAgents
-from stock_analysis.stock_analysis_tasks import StockAnalysisTasks
 from dotenv import load_dotenv
 load_dotenv()
 from tools.browser_tools import BrowserTools
@@ -14,6 +12,9 @@ from tools.calculator_tools import CalculatorTools
 from tools.search_tools import SearchTools
 from tools.sec_tools import SECTools
 from langchain.tools.yahoo_finance_news import YahooFinanceNewsTool
+from langchain_openai import OpenAI
+
+client = OpenAI(base_url="http://localhost:1234/v1", api_key="not-needed")
 
 researcher = Agent(
   role='Staff Research Analyst',

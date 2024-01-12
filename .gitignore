@@ -3,4 +3,6 @@
 venv
 .cache
 .vscode
-compose-dev.yaml
+compose-dev.yam
+.DS_Store
+__pycache__

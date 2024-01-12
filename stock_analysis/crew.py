@@ -3,22 +3,34 @@ import dotenv
 from crewai import Agent, Task, Crew, Process
 from langchain_openai import ChatOpenAI
 from langchain.tools import DuckDuckGoSearchRun
-
-dotenv.load_dotenv()
-assert os.environ.get("OPENAI_API_KEY")
-
-search_tool = DuckDuckGoSearchRun()
+from crewai import Crew
+from textwrap import dedent
+from stock_analysis.stock_analysis_agents import StockAnalysisAgents
+from stock_analysis.stock_analysis_tasks import StockAnalysisTasks
+from dotenv import load_dotenv
+load_dotenv()
+from tools.browser_tools import BrowserTools
+from tools.calculator_tools import CalculatorTools
+from tools.search_tools import SearchTools
+from tools.sec_tools import SECTools
+from langchain.tools.yahoo_finance_news import YahooFinanceNewsTool
 
 researcher = Agent(
-  role='Senior Research Analyst',
-  goal='Uncover cutting-edge developments in AI and Cybersecurity',
-  backstory="""You work at a leading tech think tank.
-  Your expertise lies in identifying emerging trends.
-  You have a knack for dissecting complex data and presenting
-  actionable insights.""",
-  verbose=True,
+  role='Staff Research Analyst',
+      goal="""Being the best at gather, interpret data and amaze
+      your customer with it""",
+      backstory="""Known as the BEST research analyst, you're
+      skilled in sifting through news, company announcements, 
+      and market sentiments. Now you're working on a super 
+      important customer""",
+      verbose=True,
   allow_delegation=False,
-  tools=[search_tool]
+  tools=[
+        BrowserTools.scrape_and_summarize_website,
+        SearchTools.search_internet,
+        SearchTools.search_news,
+        YahooFinanceNewsTool()
+      ]
 )
 
 writer = Agent(

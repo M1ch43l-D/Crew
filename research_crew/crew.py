@@ -9,13 +9,12 @@ from langchain.tools import DuckDuckGoSearchRun
 from langchain.tools.yahoo_finance_news import YahooFinanceNewsTool
 load_dotenv()
 
-search_tool = DuckDuckGoSearchRun()
-#search_tool =
-
-
+#assert os.environ.get("OPENAI_API_KEY")
 os.environ["OPENAI_API_KEY"] = "Null"
 openai_api_base = "http://localhost:1234/v1"
 llm = ChatOpenAI(model_name="gpt-3.5", temperature=0.7, openai_api_base=openai_api_base)
+
+search_tool = DuckDuckGoSearchRun()
 
 researcher = Agent(
     role='Senior Research Analyst',
@@ -30,7 +29,7 @@ researcher = Agent(
         SearchTools.search_news,
         YahooFinanceNewsTool()
       ],
-    llm=llm
+      llm=llm
 )
 
 strategist = Agent(
@@ -54,12 +53,12 @@ strategist = Agent(
 # )
 
 task1 = Task(
-    description="""Conduct an analysis of the latest trends in LLM security. Your research should cover technological advancements, market dynamics, and potential growth areas. Present your findings with supporting data and references.""",
+    description="""Research David Ogilvy. and his gratest works headlines and sales letters.""",
     agent=researcher
 )
 
 task2 = Task(
-    description="""Using the research provided, break down the LLM Security industry challenges and opportunities. Develop a strategic report outlining potential areas for innovation and market entry. Focus on first principles to propose unique, viable solutions. Your response needs to be at least 4 paragraphs.""",
+    description="""Using the research provided. craft a sales letter inviting creative entreprenures to attend our book club. The book title is the creative act by rick ruben. the gratest hiphop producer of all time.""",
     agent=strategist
 )
 

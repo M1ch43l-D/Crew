@@ -16,6 +16,7 @@ os.environ["OPENAI_API_KEY"] = "Null"
 openai_api_base = "http://localhost:1234/v1"
 llm = ChatOpenAI(model_name="gpt-3.5", temperature=0.7, openai_api_base=openai_api_base)
 
+#assert os.environ.get("OPENAI_API_KEY")
 
 class FinancialCrew:
   def __init__(self, company):

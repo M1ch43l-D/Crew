@@ -12,19 +12,21 @@ load_dotenv()
 search_tool = DuckDuckGoSearchRun()
 #search_tool =
 
+
 os.environ["OPENAI_API_KEY"] = "Null"
 openai_api_base = "http://localhost:1234/v1"
 llm = ChatOpenAI(model_name="gpt-3.5", temperature=0.7, openai_api_base=openai_api_base)
 
 researcher = Agent(
     role='Senior Research Analyst',
-    goal='Conduct exhaustive, multi-layered research on given topics, focusing on data accuracy and comprehensive analysis.',
+    goal='Conduct research on given topics, focusing on data accuracy and comprehensive analysis.',
     backstory="""As a world-renowned research analyst, your expertise lies in diving deep into topics, unraveling layers of information to uncover facts and data. Your research is not just surface-level; you delve into multiple iterations to ensure no stone is left unturned, always backing your findings with solid evidence.""",
     verbose=True,
     allow_delegation=False,
     tools=[
         BrowserTools.scrape_and_summarize_website,
-        SearchTools.search_internet,
+        #SearchTools.search_internet,
+        search_tool,
         SearchTools.search_news,
         YahooFinanceNewsTool()
       ],
@@ -52,12 +54,12 @@ strategist = Agent(
 # )
 
 task1 = Task(
-    description="""Conduct a detailed analysis of the latest trends in LLM security. Your research should cover technological advancements, market dynamics, and potential growth areas. Present your findings with supporting data and references.""",
+    description="""Conduct an analysis of the latest trends in LLM security. Your research should cover technological advancements, market dynamics, and potential growth areas. Present your findings with supporting data and references.""",
     agent=researcher
 )
 
 task2 = Task(
-    description="""Using the research provided, break down the LLM Security challenges and opportunities. Develop a strategic plan outlining potential areas for innovation and market entry. Focus on first principles to propose unique, viable solutions.""",
+    description="""Using the research provided, break down the LLM Security industry challenges and opportunities. Develop a strategic report outlining potential areas for innovation and market entry. Focus on first principles to propose unique, viable solutions. Your response needs to be at least 4 paragraphs.""",
     agent=strategist
 )
 
